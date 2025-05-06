@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import discord
 from discord.ext import commands, tasks
 from discord.ext.commands import CheckFailure, MissingRequiredArgument, BadArgument, CommandError, MemberNotFound, RoleNotFound, MissingPermissions
@@ -723,8 +722,42 @@ class StatsView(discord.ui.View):
             # Generate the stats embeds
             stats_embeds = await generate_user_stats_embeds(user)
 
-            # Send the embeds as a followup to the deferred interaction
-            await interaction.followup.send(embeds=stats_embeds, ephemeral=True)
+            # Discord embed limit is 6000 characters
+            # Send embeds in multiple messages if needed
+            MAX_EMBEDS_PER_MESSAGE = 10  # Limit embeds per message
+            MAX_CHARS_PER_MESSAGE = 5000  # Keep below Discord's 6000 char limit to be safe
+
+            if len(stats_embeds) <= MAX_EMBEDS_PER_MESSAGE:
+                # Calculate total characters in all embeds
+                total_chars = sum(len(embed.title or "") + 
+                                 len(embed.description or "") + 
+                                 sum(len(field.name) + len(field.value) for field in embed.fields)
+                                 for embed in stats_embeds)
+                
+                # If total characters are within limit, send all embeds at once
+                if total_chars <= MAX_CHARS_PER_MESSAGE:
+                    await interaction.followup.send(embeds=stats_embeds, ephemeral=True)
+                else:
+                    # Otherwise send embeds one by one
+                    for i, embed in enumerate(stats_embeds):
+                        await interaction.followup.send(embed=embed, ephemeral=True)
+            else:
+                # If there are too many embeds, split them into multiple messages
+                for i in range(0, len(stats_embeds), MAX_EMBEDS_PER_MESSAGE):
+                    chunk = stats_embeds[i:i+MAX_EMBEDS_PER_MESSAGE]
+                    # Calculate characters in this chunk
+                    chunk_chars = sum(len(embed.title or "") + 
+                                    len(embed.description or "") + 
+                                    sum(len(field.name) + len(field.value) for field in embed.fields)
+                                    for embed in chunk)
+                    
+                    if chunk_chars <= MAX_CHARS_PER_MESSAGE:
+                        # Send chunk if within character limit
+                        await interaction.followup.send(embeds=chunk, ephemeral=True)
+                    else:
+                        # Otherwise send embeds in this chunk one by one
+                        for embed in chunk:
+                            await interaction.followup.send(embed=embed, ephemeral=True)
 
             # Update the last click time
             user_last_stats_click[user_id_str] = current_time
