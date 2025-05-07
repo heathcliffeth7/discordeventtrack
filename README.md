@@ -1,5 +1,7 @@
 # Discord Event & Stats Tracker Bot
 
+**Project Repository:** [https://github.com/heathcliffeth7/discordeventtrack](https://github.com/heathcliffeth7/discordeventtrack)
+
 ## Description
 
 This Discord bot is designed to track user participation in events, monitor specific channels for Twitter links and art submissions, and provide comprehensive statistics. It features role-based access control for commands, data persistence through a JSON file, and the ability to generate detailed Excel reports.
@@ -16,14 +18,14 @@ This Discord bot is designed to track user participation in events, monitor spec
     * Fix/correct event participation or winner status.
 * **Twitter Link Monitoring**:
     * Designate specific channels for logging X.com (formerly Twitter) links.
-    * Automatically scan history of newly added log channels for past links.
+    * Automatically scan the history of newly added log channels for past links.
     * Prevent duplicate link posting by non-admin users in log channels.
     * Track unique links posted by users.
 * **Art Channel Monitoring**:
     * Designate specific channels as 'Art Channels'.
     * In Art Channels, only allow posts with media (attachments/embeds) and no accompanying text from non-admin users.
     * Count valid art posts for tracked users.
-    * Automatically scan history of newly added art channels for past art posts and update counts.
+    * Automatically scan the history of newly added art channels for past art posts and update counts.
 * **User Statistics**:
     * Display individual user statistics including:
         * Total messages sent.
@@ -68,9 +70,8 @@ This Discord bot is designed to track user participation in events, monitor spec
 
 1.  **Clone the repository or download the `bot.py` file.**
     ```bash
-    # If it were a git repository
-    # git clone <repository_url>
-    # cd <repository_name>
+    git clone [https://github.com/heathcliffeth7/discordeventtrack.git](https://github.com/heathcliffeth7/discordeventtrack.git)
+    cd discordeventtrack
     ```
 2.  **Install Dependencies**:
     It's highly recommended to use a virtual environment.
@@ -79,9 +80,9 @@ This Discord bot is designed to track user participation in events, monitor spec
     source venv/bin/activate  # On Windows: venv\Scripts\activate
     pip install discord.py python-dotenv xlsxwriter
     ```
-    (Note: Based on the imports in `bot.py`: `discord`, `json`, `os`, `xlsxwriter`, `datetime`, `re`, `asyncio`, `string`, `dotenv`, `time`).
+    (Based on the imports in `bot.py`: `discord`, `json`, `os`, `xlsxwriter`, `datetime`, `re`, `asyncio`, `string`, `dotenv`, `time`).
 
-3.  **Create a `.env` file** in the same directory as `bot.py` and add your Discord bot token:
+3.  Create a `.env` file in the same directory as `bot.py` and add your Discord bot token:
     ```env
     DISCORD_TOKEN=YOUR_BOT_TOKEN_HERE
     ```
@@ -109,8 +110,8 @@ The bot is configured primarily through Discord commands. Key configurations are
 * **Key Configuration Commands (for users with Track Authorized Role)**:
     * `!settrackauthorizedrole <@role or ID>`: Adds a role to the list of roles that can use administrative commands.
     * `!settracktargetrole <@role or ID> [@role2...]`: Sets roles whose members' activities will be tracked.
-    * `!removeauthorizedrole <@role or ID> [@role2...]`: Removes a role from track authorized list.
-    * `!removetargetrole <@role or ID> [@role2...]`: Removes a role from track target list.
+    * `!removeauthorizedrole <@role or ID> [@role2...]`: Removes a role from the track authorized list.
+    * `!removetargetrole <@role or ID> [@role2...]`: Removes a role from the track target list.
     * `!setstatsroleauthorized <@role or ID> [@role2...]`: Allows members with this role to use the `!stats` command.
     * `!removestatsroleauthorized <@role or ID> [@role2...]`: Removes `!stats` command access for the role.
     * `!twitterlog <#channel or ID>`: Designates a channel for X.com link logging.
@@ -143,13 +144,13 @@ The bot is configured primarily through Discord commands. Key configurations are
     * `!copyevent <#voice/stage_channel or ID> <event_name>`: Adds all members from a voice/stage channel to an event.
     * `!winnerlist <event_name>`: Sends a text file listing event winners.
     * `!joinedlist <event_name>`: Sends a text file listing users who joined but didn't win an event.
-    * `!fixwinners <joined|notjoined> <event_name> <id...>`: Modifies status of winners.
-    * `!fixjoined <winner|notjoined> <event_name> <id...>`: Modifies status of joined members.
-    * `!fixnotjoined <joined|winner> <event_name> <id...>`: Adds users not in event to joined/winner.
+    * `!fixwinners <joined|notjoined> <event_name> <id...>`: Modifies the status of winners.
+    * `!fixjoined <winner|notjoined> <event_name> <id...>`: Modifies the status of joined members.
+    * `!fixnotjoined <joined|winner> <event_name> <id...>`: Adds users not in the event to joined/winner.
 * **Bulk Actions**:
     * `!bulkban <id1> [id2...] [reason=...]`: Bans multiple users by ID.
     * `!bulkgiverole <@role or ID> <id1> [id2...]`: Assigns a role to multiple users by ID.
-* **(Configuration commands listed in "Configuration" section above)**
+* **(Configuration commands listed in the "Configuration" section above)**
 
 **User Commands**:
 
