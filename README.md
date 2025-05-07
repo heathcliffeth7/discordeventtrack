@@ -1,7 +1,5 @@
 # Discord Event & Stats Tracker Bot
 
-**Project Repository:** [https://github.com/heathcliffeth7/discordeventtrack](https://github.com/heathcliffeth7/discordeventtrack)
-
 ## Description
 
 This Discord bot is designed to track user participation in events, monitor specific channels for Twitter links and art submissions, and provide comprehensive statistics. It features role-based access control for commands, data persistence through a JSON file, and the ability to generate detailed Excel reports.
@@ -70,7 +68,7 @@ This Discord bot is designed to track user participation in events, monitor spec
 
 1.  **Clone the repository or download the `bot.py` file.**
     ```bash
-    git clone [https://github.com/heathcliffeth7/discordeventtrack.git](https://github.com/heathcliffeth7/discordeventtrack.git)
+    git clone https://github.com/heathcliffeth7/discordeventtrack.git
     cd discordeventtrack
     ```
 2.  **Install Dependencies**:
