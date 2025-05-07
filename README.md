@@ -62,7 +62,7 @@ This Discord bot is designed to track user participation in events, monitor spec
 
 * Python 3.8+
 * A Discord Bot Token
-* Discord.py library and other dependencies (see `requirements.txt` if available, or install manually).
+* Discord.py library and other dependencies 
 
 ## Setup & Installation
 
